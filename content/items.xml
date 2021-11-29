@@ -1,0 +1,4 @@
+<items gfxroot="gfx/items/" version="1">
+	<passive description="You are angry!" gfx="red_map.png" name="Red Map" id="800"/>
+	<trinket description="More reversed cards!" gfx="reverse_card.png" name="Uno Reverse Card"/>
+</items>
