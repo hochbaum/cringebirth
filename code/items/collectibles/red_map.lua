@@ -1,19 +1,11 @@
 local redMap = {}
 local id = Isaac.GetItemIdByName("Red Map")
-
-function redMap:postNewRoom()
-  if hasRedMap() then
-    markUltraSecretRoom()
-  end
-end  
-
-function redMap:postUpdate()
-  if hasRedMap() then
-    markUltraSecretRoom()
-  end 
-end  
-
-function markUltraSecretRoom()
+ 
+function redMap:markUltraSecretRoom()
+  if not hasRedMap() then
+    return
+  end  
+  
   local level = Game():GetLevel()
   for i = 0, 169 do
     local room = level:GetRoomByIdx(i)
@@ -30,5 +22,5 @@ function hasRedMap()
   return player:HasCollectible(id)
 end  
 
-Cringebirth:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, redMap.postNewRoom)
-Cringebirth:AddCallback(ModCallbacks.MC_POST_UPDATE, redMap.postUpdate)
+Cringebirth:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, redMap.markUltraSecretRoom)
+Cringebirth:AddCallback(ModCallbacks.MC_POST_UPDATE, redMap.markUltraSecretRoom)
