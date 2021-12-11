@@ -1,0 +1,5 @@
+<players root="gfx/characters/costumes/" portraitroot="gfx/ui/stage/" nameimageroot="gfx/ui/boss/">
+		 																		<!-- Mega Mush, Magic Mush, Lil Brimstone, Wavy Cap -->
+	<player id="41" name="Julie" skin="Character_005_Eve.png" costume="10" hp="2" items="625,12,275" pocketActive="582"
+          nameimage="PlayerName_05_Eve.png" portrait="PlayerPortrait_Eve.png" skinColor="-1" />
+</players>
