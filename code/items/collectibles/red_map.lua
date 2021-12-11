@@ -1,4 +1,8 @@
+--[[
+  Red Map is a collectible item which always marks the Ultra Secret Room on Isaac's map.
+]]--
 local redMap = {}
+
 local id = Isaac.GetItemIdByName("Red Map")
  
 function redMap:markUltraSecretRoom()
@@ -7,7 +11,9 @@ function redMap:markUltraSecretRoom()
   end  
   
   local level = Game():GetLevel()
-  for i = 0, 169 do
+  
+  -- Loops through every room on the current floor.
+  for i = 0, 13 * 13 do
     local room = level:GetRoomByIdx(i)
     if room.Data and room.Data.Type == RoomType.ROOM_ULTRASECRET then
       room.DisplayFlags = room.DisplayFlags | 1 << 2 -- 0b100
