@@ -30,18 +30,28 @@ function bowlOfOlives:onTearFire(tear)
 end
 
 -- Spawn the creep periodically.
-Timer.Task(TimerMode.REPEATING, 1, function()
-  -- TODO: Spawn creep below affected enemies.
+Timer.Task(TimerMode.REPEATING, bowlOfOlives.TICK_RATE, function(frame)
+  if Game():IsPaused() then
+    return
+  end  
+  local entities = Isaac.GetRoomEntities()
+  for i,entity in pairs(entities) do
+    local oliveTicks = entity:GetData()["OliveTicks"] or 0
+    if oliveTicks > 0 then
+      local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CREEP_GREEN, 0, entity.Position, Vector(0, 0), Isaac.GetPlayer(0))
+      entity:GetData()["OliveTicks"] = oliveTicks - bowlOfOlives.TICK_RATE
+    end
+  end      
 end)
 
 function bowlOfOlives:onTearHit(tear, collider, low)
   -- Make sure the tear is an olive.
   if tear:GetData()["IsOlive"] then
     sfx:Play(SoundEffect.SOUND_PESTILENCE_NECK_PUKE)
-    collider:SetColor(Color(1, 255, 1, 1, 0, 255, 0), bowlOfOlives.DURATION, 1, false, false)
+    collider:SetColor(Color(1, 255, 1, 1, 0, 255, 0), bowlOfOlives.DURATION / 2, 1, true, false)
     
-    -- OliveTicks determines how many frames the entity feels sick.
-    collider:GetData()["OliveFrames"] = bowlOfOlives.DURATION
+    -- OliveTicks determines how many ticks the entity feels sick.
+    collider:GetData()["OliveTicks"] = bowlOfOlives.DURATION
   end  
 end
 

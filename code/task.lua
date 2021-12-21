@@ -26,10 +26,10 @@ local frameCounter = 0
 function tick()
   frameCounter = frameCounter + 1
   removeQueue = {}
-  for i,task in pairs(Timer) do
+  for i,task in pairs(tasks) do
     if (task.mode == TimerMode.DELAYED and frameCounter >= task.frames) 
     or (task.mode == TimerMode.REPEATING and frameCounter % task.frames == 0) then
-      task["func"]()
+      task["func"](frameCounter)
       if task.mode == TimerMode.DELAYED then
         table.insert(removeQueue, task)
       end
